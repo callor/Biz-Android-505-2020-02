@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+
+    android:paddingLeft="16px"
+    android:paddingEnd="16px"
+    android:paddingTop="10px"
+    android:paddingBottom="10px"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+    LinearLayout
+    전통적으로 기본적인 Layout을 만들때 사용하던 기본 구조형
+    가로방향, 세로방향으로 일정하게 컴포넌트를 배치할때 사용
+
+    padding
+    안드로이드 기본 디자인 가이드에
+    가로좌우 16px, 세로 위아래 8 또는 10px의 여백을
+    주도록 하고 있다.
+
+    layout_width, layout_height
+    두가지 기본 속성을 주로 사용
+    wrap_content : 내부에 표현되는 데이터(문자열등)의 크기에 맞추어서 조절
+    match_parent : 부모 layout에 가득채우도록 설정
+    -->
+
+    <!--
+    TextView : 화면에 static(고정된)문자열을 표현하기 위한 component
+    EditText : 사용자로부터 키보드로 문자열 등을 입력받기 위한 component
+    Button : 사용자의 클릭(터치) 이벤트에 반응하여 액션을 만들기 위한 component
+    -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="30dp"
+        android:text="반갑습니다" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="30dp"
+        android:text="안녕하세요" />
+
+    <EditText
+        android:id="@+id/txtInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/txtInput2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Toast" />
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Snack" />
+
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Open" />
+
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="CALL" />
+
+
+
+</LinearLayout>

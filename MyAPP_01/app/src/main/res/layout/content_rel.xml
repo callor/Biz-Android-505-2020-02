@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img01"
+        android:src="@drawable/image01"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:id="@+id/mtxt1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/img01"
+        android:text="우리나라만세"
+        />
+
+    <TextView
+        android:id="@+id/mtxt2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/mtxt1"
+        android:text="우리나라만세"
+        />
+
+    <TextView
+        android:id="@+id/mtxt3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/mtxt2"
+        android:text="우리나라만세"
+        />
+
+    <TextView
+        android:id="@+id/mtxt4"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/mtxt3"
+        android:text="우리나라만세"
+        />
+
+    <TextView
+        android:id="@+id/mtxt5"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/mtxt4"
+        android:text="우리나라만세"
+        />
+
+    <TextView
+        android:id="@+id/mtxt6"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/mtxt5"
+        android:text="우리나라만세"
+        />
+
+    <TextView
+        android:id="@+id/mtxt7"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/mtxt6"
+        android:text="우리나라만세"
+        />
+
+
+</RelativeLayout>
+</androidx.core.widget.NestedScrollView>
+
+
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/m_app_about"
+        android:icon="@android:drawable/checkbox_on_background"
+        android:title="앱에대하여"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/m_login"
+        android:title="로그인"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/m_settings"
+        android:title="설정"
+        app:showAsAction="never" />
+</menu>

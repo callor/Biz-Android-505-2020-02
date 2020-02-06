@@ -2,18 +2,38 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--
+    app:showAsAction="never"
+
+    never : Appbar에 기본적으로 메뉴를 표시하지 말라
+    always : 항상 표시하라, 만약 Appbar의 공간이 넉넉하면 모든 메뉴를 보여라
+    ifRoom : 공간이 있으면 이 항목을 표시하라
+            always하고 비슷한 역할을 하는데
+            디바이스에 따라서 auto설정을 수행하는 기능
+
+    withText : 작업항목과 함께 제목 텍스트를 표시하라
+
+    -->
+
     <item
         android:id="@+id/m_app_about"
-        android:icon="@android:drawable/checkbox_on_background"
-        android:title="앱에대하여"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_account_balance_black_24dp"
+        android:title="대하여"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:title="icon"
+        android:icon="@drawable/ic_account_balance_black_24dp"
+        app:showAsAction="always|withText" />
 
     <item
         android:id="@+id/m_login"
         android:title="로그인"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/m_settings"
         android:title="설정"
+        android:icon="@drawable/ic_adb_black_24dp"
         app:showAsAction="never" />
 </menu>

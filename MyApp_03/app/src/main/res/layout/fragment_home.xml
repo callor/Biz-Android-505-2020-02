@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+       EditText의 향상된 버전
+       새로운 입력 box를 구성하는 layout
+       layout 내부에서 TextInputEditText를 사용하여
+       입력을 받도록 수행
+
+       hint로 지정된 문자열을 보여주고
+       입력을 위해서 터치를 수행하면
+       hint문자열을 제목으로 보내 입력을 도와주는 기능이 있다
+    -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_txt_name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:privateImeOptions="defaultInputmode=korea"
+            android:hint="이름을 입력하세요" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_txt_tel"
+        app:layout_constraintTop_toBottomOf="@+id/layout_txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:hint="전화번호를 입력하세요" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        app:layout_constraintTop_toBottomOf="@id/layout_txt_tel"
+        android:text="저장"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

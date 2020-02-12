@@ -12,3 +12,9 @@
 * 일반적인 SQL을 사용해서 DB 핸들링이 가능
 * SQL Lite를 직접 핸들링 하지 않고
     room 이라는 ORM을 사용해서 추상화하고 DB핸들링을 수행한다.
+
+## room DB 사용하기
+1. table로 사용할 vo 를 entity로 선언
+2. dao로 사용할 interface를 정의
+3. MemoDataBase : DB 연결과 dao Imp를 생성할 클래스를 정의
+4. Repository(Service) DB에 접근하는 연결 클래스 정의

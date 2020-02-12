@@ -15,26 +15,25 @@ import java.util.List;
 public interface MemoDao {
 
     @Query("SELECT * FROM tbl_memo")
-    List<MemoVO> selectAll();
+    public List<MemoVO> selectAll();
 
     @Query("SELECT * FROM tbl_memo WHERE rowid = :rowid ")
-    MemoVO findByRowId(long rowid);
+    public MemoVO findByRowId(long rowid);
 
     @Query("SELECT * FROM tbl_memo WHERE m_text LIKE :m_text")
-    List<MemoVO> findByText(String m_text);
+    public List<MemoVO> findByText(String m_text);
 
     /*
     ORM 구조에서는 새로운 데이터는 insert를 수행하고
     기존 데이터는 replace를 수행하는 메서드를 공통으로 사용을 한다.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void save(MemoVO memoVO);
+    public void save(MemoVO memoVO);
 
     @Update
-    void update(MemoVO memoVO);
+    public void update(MemoVO memoVO);
 
     @Delete
-    void delete(long rowid);
-
+    public void delete(long rowid);
 
 }

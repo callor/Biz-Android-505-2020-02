@@ -21,7 +21,10 @@ import lombok.ToString;
 @Entity(tableName = "tbl_memo")
 public class MemoVO {
 
-    @PrimaryKey
+    /*
+    PK 지정된 숫자형 칼럼에 auto increment 를 부여하는 속성
+     */
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="rowid")
     private long id;
 

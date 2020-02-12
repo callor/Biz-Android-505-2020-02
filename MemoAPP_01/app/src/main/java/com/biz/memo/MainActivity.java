@@ -1,8 +1,20 @@
 package com.biz.memo;
 
-import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.biz.memo.adaper.MemoViewAdapter;
 import com.biz.memo.adaper.MemoViewModel;
@@ -11,39 +23,24 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity { // } implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    List<MemoVO> memoList = null;
+    // List<MemoVO> memoList = null;
     TextInputEditText m_input_memo = null;
     RecyclerView memo_list_view = null;
-    RecyclerView.Adapter view_adapter = null;
+    MemoViewAdapter view_adapter = null;
 
     /*
     DB 연동을 위한 변수들 선언
      */
-    MemoViewModel memoViewModel;
 
-    ViewModelProvider.Factory viewModelFactory;
+     ViewModelProvider.Factory viewModelFactory;
+     MemoViewModel memoViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,32 +49,30 @@ public class MainActivity extends AppCompatActivity { // } implements View.OnCli
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
-        memoList = new ArrayList<MemoVO>();
         Button btn_save = findViewById(R.id.memo_save);
-        // btn_save.setOnClickListener(this);
+        btn_save.setOnClickListener(this);
 
         m_input_memo = findViewById(R.id.m_input_text);
-
         memo_list_view = findViewById(R.id.memo_list_view);
 
-        // DB 연동을 위한 준비
-
-        // 2.2.0
-        // memoViewModel = new ViewModelProvider(this).get()
-
-        // 2.2.2
-        memoViewModel
-           = new ViewModelProvider(
-                getViewModelStore(),
-                viewModelFactory
-        ).get(MemoViewModel.class);
-
-        memoList = memoViewModel.selectAll();
-
-        view_adapter = new MemoViewAdapter(MainActivity.this,memoList);
+        view_adapter = new MemoViewAdapter(this, new MemoViewAdapter.OnDeleteButtonClickListener() {
+            @Override
+            public void onDeleteButtonClicked(MemoVO post) {
+                memoViewModel.delete(post);
+            }
+        });
         memo_list_view.setAdapter(view_adapter);
+
+        memoViewModel = new ViewModelProvider(this).get(MemoViewModel.class);
+
+        memoViewModel.selectAll().observe(this, new Observer<List<MemoVO>>() {
+            @Override
+            public void onChanged(List<MemoVO> memoVOList) {
+
+                view_adapter.setMemoList(memoVOList);
+                view_adapter.notifyDataSetChanged();
+            }
+        });
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(MainActivity.this);
@@ -90,9 +85,8 @@ public class MainActivity extends AppCompatActivity { // } implements View.OnCli
 
         itemDecoration.setDrawable(
                 this.getResources().getDrawable(
-                        R.drawable.decoration_line,getApplication().getTheme()));
+                        R.drawable.decoration_line, getApplication().getTheme()));
         memo_list_view.addItemDecoration(itemDecoration);
-
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -132,11 +126,11 @@ public class MainActivity extends AppCompatActivity { // } implements View.OnCli
     public void onClick(View v) {
 
         String m_memo_text = m_input_memo.getText().toString();
-        if(m_memo_text.isEmpty()) {
+        if (m_memo_text.isEmpty()) {
             Toast.makeText(MainActivity.this,
-                    "메모를 입력하세요",Toast.LENGTH_SHORT).show();
+                    "메모를 입력하세요", Toast.LENGTH_SHORT).show();
             m_input_memo.setFocusable(true);
-            return ;
+            return;
 
         }
 
@@ -146,17 +140,20 @@ public class MainActivity extends AppCompatActivity { // } implements View.OnCli
         Date date = new Date(System.currentTimeMillis());
 
         MemoVO memoVO = MemoVO.builder()
-                        .m_date(sd.format(date))
-                        .m_time(st.format(date))
-                        .m_text(m_memo_text).build();
+                .m_date(sd.format(date))
+                .m_time(st.format(date))
+                .m_text(m_memo_text).build();
 
-        memoList.add(memoVO);
+        memoViewModel.insert(memoVO);
+        // memoList.add(memoVO);
 
         // RecyclerView의 Adapter한테 데이터가 변경되었으니 리스트를
         // 다시 그려라 라는 통보
-        view_adapter.notifyDataSetChanged();
+        // view_adapter.notifyDataSetChanged();
 
         m_input_memo.setText("");
 
     }
+
+
 }

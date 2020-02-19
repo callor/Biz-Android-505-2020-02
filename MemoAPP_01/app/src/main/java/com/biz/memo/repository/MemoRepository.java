@@ -24,29 +24,26 @@ public class MemoRepository {
     }
 
     public LiveData<List<MemoVO>> selectAll() {
-<<<<<<< HEAD
-        return mDao.selectAll();
-=======
         return memoList;
->>>>>>> d3dade02e2cd3f6e60c01b41804fb6f61101529a
     }
 
+    /* thread로 insert 실행 */
     public void insert(final MemoVO memoVO) {
-        /*
-        MemoDataBase.databaseWriteExecutor.execute(new Runnable() {
+        MemoDataBase.dbWriterThread.execute(new Runnable() {
             @Override
             public void run() {
-                mDao.save(memoVO);
+                mDao.insert(memoVO);
             }
         });
-         */
+
+        /*
         MemoDataBase.databaseWriteExecutor.execute(()->{
             mDao.save(memoVO);
         });
+        */
 
     }
-
-    public void delete(MemoVO post) {
-        mDao.delete(post);
+    public void delete(MemoVO memoVO) {
+        mDao.delete(memoVO);
     }
 }

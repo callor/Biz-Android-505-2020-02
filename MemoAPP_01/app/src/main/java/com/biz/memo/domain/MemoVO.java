@@ -12,14 +12,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-<<<<<<< HEAD
-
 /*
 FTS Ver 4
 Full Text Search수행하는 방법에 3와 4가 있는데
@@ -27,9 +24,8 @@ Full Text Search수행하는 방법에 3와 4가 있는데
 매우 빠른 속도로 전체텍스트 검색을 할수 있다.
 Fts4는 Room 2.1.0 이상에서 제공되는 기능
  */
+//
 @Fts4
-=======
->>>>>>> d3dade02e2cd3f6e60c01b41804fb6f61101529a
 @Entity(tableName = "tbl_memo")
 public class MemoVO {
 
@@ -42,7 +38,7 @@ public class MemoVO {
      */
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="rowid")
-    private int id;
+    private int rowid;
 
     @ColumnInfo(name="m_date")
     private String m_date;
@@ -50,7 +46,7 @@ public class MemoVO {
     @ColumnInfo(name="m_time")
     private String m_time;
 
-    @ColumnInfo
+    @ColumnInfo(name="m_text")
     private String m_text;
 
 

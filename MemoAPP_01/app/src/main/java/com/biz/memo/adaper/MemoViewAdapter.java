@@ -17,48 +17,15 @@ import java.util.List;
 
 public class MemoViewAdapter extends RecyclerView.Adapter {
 
-    // item 삭제를 위한 이벤트 선
-    public interface OnDeleteButtonClickListener {
-        void onDeleteButtonClicked(MemoVO post);
-    }
 
     private Context context = null;
     private List<MemoVO> memoList = null;
     private LayoutInflater layoutInflater;
-    private OnDeleteButtonClickListener onDeleteButtonClickListener;
 
     /*
     MainActivity에서 이벤트 인터페이스를 구현하고
     생성자에 주입한다.
      */
-    public MemoViewAdapter(Context context, OnDeleteButtonClickListener onDeleteButtonClickListener) {
-        this.context = context;
-        this.onDeleteButtonClickListener = onDeleteButtonClickListener;
-    }
-
-    public void setMemoList(List<MemoVO> memoList) {
-        this.memoList = memoList;
-    }
-
-
-    public MemoViewAdapter(Context context) {
-        this.context = context;
-    }
-
-    /*
-        MainActivity에서 MemoViewAdapter를 만들때 Context와 memoList를 주입할 생성자
-         */
-    public MemoViewAdapter(Context context, List<MemoVO> memoList) {
-        this.context = context;
-        this.memoList = memoList;
-    }
-
-<<<<<<< HEAD
-    public MemoViewAdapter(Context context) {
-        this.context = context;
-        this.memoList = memoList;
-    }
-
     public void setMemoList(List<MemoVO> memoList) {
 
         // 외부에서 list를 주입받고
@@ -70,8 +37,16 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
 
     }
 
-=======
->>>>>>> d3dade02e2cd3f6e60c01b41804fb6f61101529a
+    public MemoViewAdapter(Context context) {
+        this.context = context;
+    }
+    /*
+        MainActivity에서 MemoViewAdapter를 만들때 Context와 memoList를 주입할 생성자
+     */
+    public MemoViewAdapter(Context context, List<MemoVO> memoList) {
+        this.context = context;
+        this.memoList = memoList;
+    }
 
     @NonNull
     @Override
@@ -80,13 +55,16 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         /*
         memo_item.xml파일을 가져와서 view객체로 생성(확장)하기
          */
+
         /*
-        View view = LayoutInflater.from(context).inflate(R.layout.memo_item,
-                            parent,
-                false);
+        View view = LayoutInflater
+                        .from(context)
+                        .inflate(R.layout.memo_item,parent,false);
         */
 
-        View view = layoutInflater.inflate(R.layout.memo_item, parent, false);
+        View view = layoutInflater
+                    .inflate(R.layout.memo_item, parent, false);
+
         MemoHolder holder = new MemoHolder(view);
         return holder;
     }
@@ -131,14 +109,6 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         memoHolder.item_view_date.setText(memoList.get(position).getM_date());
         memoHolder.item_view_time.setText(memoList.get(position).getM_time());
         memoHolder.item_view_text.setText(memoList.get(position).getM_text());
-
-
-        memoHolder.item_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onDeleteButtonClickListener.onDeleteButtonClicked(memoList.get(position));
-            }
-        });
 
     }
 

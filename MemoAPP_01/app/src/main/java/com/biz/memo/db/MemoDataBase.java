@@ -2,13 +2,9 @@ package com.biz.memo.db;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.biz.memo.domain.MemoVO;
 import com.biz.memo.repository.MemoDao;
@@ -16,14 +12,9 @@ import com.biz.memo.repository.MemoDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {MemoVO.class},version = 1)
-public abstract  class MemoDataBase extends RoomDatabase {
 
-    /*
-        데이터베이스 INSTANCE가 생성이 되면서
-        MemoDao interface를 가져다가 사용할수 있는 class 생성을 한다.
-     */
-    public abstract  MemoDao getMemoDao();
+@Database(entities = {MemoVO.class}, version = 1, exportSchema = false)
+public abstract class MemoDataBase extends RoomDatabase {
 
     // 고전적인 Thread 클래스를 도와서 Thread를 관리해주는
     // Helper 클래스
@@ -32,22 +23,27 @@ public abstract  class MemoDataBase extends RoomDatabase {
     static final ExecutorService dbWriterThread =
             Executors.newFixedThreadPool(3);
 
-    /*
-    Database를 생성하는 클래스를 싱글톤으로 선언하기 위해
-    외부에서 접근하는 변수 선언
-     */
+    public abstract MemoDao getMemoDao();
+
+    // marking the instance as volatile to ensure atomic access to the variable
     private static volatile MemoDataBase INSTANCE;
-    public static MemoDataBase getInstance(Context context) {
-        if(INSTANCE == null) {
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    public static MemoDataBase getInstance(final Context context) {
+        if (INSTANCE == null) {
             synchronized (MemoDataBase.class) {
-                INSTANCE = Room.databaseBuilder(
-                        context.getApplicationContext(),
-                        MemoDataBase.class,
-                        "memo.dbf"
-                ).build();
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            MemoDataBase.class, "word_database")
+                            // .addCallback(sRoomDatabaseCallback)
+                            .build();
+                }
             }
         }
         return INSTANCE;
     }
+
 
 }

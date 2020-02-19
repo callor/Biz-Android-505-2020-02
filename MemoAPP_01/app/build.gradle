@@ -51,7 +51,10 @@ dependencies {
 dependencies {
     // 현재 app gradle에 변수속성을 설정하고 항목을 지정하는 방법
     def room_version = "2.2.2"
+    def  archLifecycleVersion = '2.2.0-beta01'
 
+
+<<<<<<< HEAD
     // $rootProject.속성
     // Project gradle에 ext 항목에 설정한 속성값을 가져와서 지정하는 방법
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
@@ -73,4 +76,25 @@ dependencies {
 
     // Test helpers
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+=======
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    // implementation "androidx.room:room-ktx:$room_version"
+
+    // optional - RxJava support for Room
+    // implementation "androidx.room:room-rxjava2:$room_version"
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    // implementation "androidx.room:room-guava:$room_version"
+
+    // Test helpers
+    // testImplementation "androidx.room:room-testing:$room_version"
+>>>>>>> d3dade02e2cd3f6e60c01b41804fb6f61101529a
 }

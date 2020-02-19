@@ -2,6 +2,8 @@ package com.biz.memo.repository;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.biz.memo.db.MemoDataBase;
 import com.biz.memo.domain.MemoVO;
 
@@ -19,7 +21,7 @@ public class MemoRepository {
         mDao = db.getMemoDao();
     }
 
-    public List<MemoVO> selectAll() {
+    public LiveData<List<MemoVO>> selectAll() {
         return mDao.selectAll();
     }
 

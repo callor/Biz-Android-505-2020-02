@@ -49,20 +49,28 @@ dependencies {
 }
 
 dependencies {
+    // 현재 app gradle에 변수속성을 설정하고 항목을 지정하는 방법
     def room_version = "2.2.2"
 
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    // $rootProject.속성
+    // Project gradle에 ext 항목에 설정한 속성값을 가져와서 지정하는 방법
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion" // For Kotlin use kapt instead of annotationProcessor
+
+    // android에서 MVVM을 활용하여 DB 조회내용을 화면에 View하는 용도로 사용하는
+    // dependency
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifeVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifeVersion" // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
 
     // optional - RxJava support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
 
     // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation "androidx.room:room-guava:$room_version"
+    implementation "androidx.room:room-guava:$rootProject.roomVersion"
 
     // Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
+    testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 }

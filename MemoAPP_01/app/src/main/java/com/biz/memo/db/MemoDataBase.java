@@ -25,6 +25,12 @@ public abstract  class MemoDataBase extends RoomDatabase {
      */
     public abstract  MemoDao getMemoDao();
 
+    // 고전적인 Thread 클래스를 도와서 Thread를 관리해주는
+    // Helper 클래스
+    // 앞으로 실행할(생성할) Thread를 위한 Context 정보를 담을 객체를
+    // 미리 비어있는 상태로 생성을 해두고 필요할때 공급하는 용도
+    static final ExecutorService dbWriterThread =
+            Executors.newFixedThreadPool(3);
 
     /*
     Database를 생성하는 클래스를 싱글톤으로 선언하기 위해

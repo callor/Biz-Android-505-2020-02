@@ -1,8 +1,19 @@
 package com.biz.memo;
 
-import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.biz.memo.adaper.MemoViewAdapter;
 import com.biz.memo.adaper.MemoViewModel;
@@ -10,21 +21,6 @@ import com.biz.memo.domain.MemoVO;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,14 +32,12 @@ public class MainActivity extends AppCompatActivity { // } implements View.OnCli
     List<MemoVO> memoList = null;
     TextInputEditText m_input_memo = null;
     RecyclerView memo_list_view = null;
-    RecyclerView.Adapter view_adapter = null;
+    MemoViewAdapter view_adapter = null;
 
     /*
     DB 연동을 위한 변수들 선언
      */
     MemoViewModel memoViewModel;
-
-    ViewModelProvider.Factory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +58,26 @@ public class MainActivity extends AppCompatActivity { // } implements View.OnCli
 
         // DB 연동을 위한 준비
 
-        // 2.2.0
-        // memoViewModel = new ViewModelProvider(this).get()
+        // LifeCycle 2.2.0-beta01의 ViewModelProvider 사용
+        memoViewModel = new ViewModelProvider(this)
+                        .get(MemoViewModel.class);
 
-        // 2.2.2
-        memoViewModel
-           = new ViewModelProvider(
-                getViewModelStore(),
-                viewModelFactory
-        ).get(MemoViewModel.class);
 
-        memoList = memoViewModel.selectAll();
+        /*
+        DB의 데이터가 변경되어 이전에
+        selectAll() 가져온 리스트에 변동이 발생하면
+        observ() 메서드가 알람을 주고 onChanged 이벤트가 발생을 한다.
+        onChanged() method에서 데이터를 화면에 보여주는 코드를 작성한다.
+         */
+        memoViewModel.selectAll().observe(this, new Observer<List<MemoVO>>() {
+            @Override
+            public void onChanged(List<MemoVO> memoVOS) {
+                view_adapter.setMemoList(memoList);
+            }
+        });
 
+
+        // memoList = memoViewModel.selectAll();
         view_adapter = new MemoViewAdapter(MainActivity.this,memoList);
         memo_list_view.setAdapter(view_adapter);
 
@@ -150,11 +152,13 @@ public class MainActivity extends AppCompatActivity { // } implements View.OnCli
                         .m_time(st.format(date))
                         .m_text(m_memo_text).build();
 
-        memoList.add(memoVO);
+        // memoViewModel의 insert 메서드를 호출하여 DB에 memoVO 데이터를 저장
+        memoViewModel.insert(memoVO);
 
+        // memoList.add(memoVO);
         // RecyclerView의 Adapter한테 데이터가 변경되었으니 리스트를
         // 다시 그려라 라는 통보
-        view_adapter.notifyDataSetChanged();
+        // view_adapter.notifyDataSetChanged();
 
         m_input_memo.setText("");
 

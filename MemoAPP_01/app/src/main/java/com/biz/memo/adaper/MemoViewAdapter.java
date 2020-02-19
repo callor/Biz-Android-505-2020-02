@@ -27,6 +27,23 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         this.memoList = memoList;
     }
 
+    public MemoViewAdapter(Context context) {
+        this.context = context;
+        this.memoList = memoList;
+    }
+
+    public void setMemoList(List<MemoVO> memoList) {
+
+        // 외부에서 list를 주입받고
+        // recyclerview에 세팅
+        this.memoList = memoList;
+
+        // recyclerview에게 알람
+        notifyDataSetChanged();
+
+    }
+
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

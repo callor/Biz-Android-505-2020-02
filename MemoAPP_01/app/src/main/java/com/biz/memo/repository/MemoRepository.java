@@ -29,21 +29,20 @@ public class MemoRepository {
 
     /* thread로 insert 실행 */
     public void insert(final MemoVO memoVO) {
+
+        // 기본자바 코드
+        /*
         MemoDataBase.dbWriterThread.execute(new Runnable() {
             @Override
             public void run() {
                 mDao.insert(memoVO);
             }
         });
-
-        /*
-        MemoDataBase.databaseWriteExecutor.execute(()->{
-            mDao.save(memoVO);
-        });
         */
+        MemoDataBase.dbWriterThread.execute( ()->mDao.save(memoVO)  );
 
     }
     public void delete(MemoVO memoVO) {
-        mDao.delete(memoVO);
+        MemoDataBase.dbWriterThread.execute( ()->mDao.delete(memoVO) );
     }
 }

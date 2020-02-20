@@ -23,14 +23,16 @@ public interface MemoDao {
     DB의 내용이 변경되면 변경된 부분만 가져와서
     View에 표시할수 있도록 알람을 내부적으로 발생시키는 클래스
      */
-
-    @Query("SELECT * FROM tbl_memo")
+    // projection : db에서 조회를 할때
+    // 필요한 칼럼들을 코딩으로 나열하는 것
+    // Fts4를 사용하려면 반드시 rowid 칼럼을 표현해주어야 한다.
+    @Query("SELECT rowid, m_date, m_time, m_text FROM tbl_memo")
     public LiveData<List<MemoVO>> selectAll();
 
-    @Query("SELECT * FROM tbl_memo WHERE rowid = :rowid ")
+    @Query("SELECT rowid, m_date, m_time, m_text FROM tbl_memo WHERE rowid = :rowid ")
     MemoVO findByRowId(String rowid);
 
-    @Query("SELECT * FROM tbl_memo WHERE m_text LIKE :m_text")
+    @Query("SELECT rowid, m_date, m_time, m_text FROM tbl_memo WHERE m_text LIKE :m_text")
     public LiveData<List<MemoVO>> findByText(String m_text);
 
     /*

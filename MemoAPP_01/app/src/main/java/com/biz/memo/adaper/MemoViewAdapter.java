@@ -23,11 +23,6 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
     public interface OnDeleteButtonClickListener{
         void onDeleteButtonCliked(MemoVO memoVO);
     }
-
-    private Context context = null;
-    private List<MemoVO> memoList = null;
-    private LayoutInflater layoutInflater;
-
     // 삭제버튼 이벤트를 저장할 객체 변수를 선언하고
     private OnDeleteButtonClickListener deleteBtnClick;
 
@@ -36,6 +31,13 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
     public void setDeleteBtnClick(OnDeleteButtonClickListener event) {
         this.deleteBtnClick = event;
     }
+
+
+
+    private Context context = null;
+    private List<MemoVO> memoList = null;
+    private LayoutInflater layoutInflater;
+
 
     /*
     MainActivity에서 이벤트 인터페이스를 구현하고

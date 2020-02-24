@@ -1,4 +1,4 @@
-package com.biz.naver;
+package com.biz.naver.config;
 
 public class NaverSecurSample {
 

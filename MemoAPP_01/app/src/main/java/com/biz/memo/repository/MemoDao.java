@@ -40,9 +40,6 @@ public interface MemoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void save(MemoVO memoVO);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insert(MemoVO memoVO);
-
     @Update
     public void update(MemoVO memoVO);
 

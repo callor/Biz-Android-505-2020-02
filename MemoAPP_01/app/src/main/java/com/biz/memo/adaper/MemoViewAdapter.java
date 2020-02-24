@@ -20,7 +20,7 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
 
     private Context context = null;
     private List<MemoVO> memoList = null;
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
     /*
     MainActivity에서 이벤트 인터페이스를 구현하고
@@ -33,20 +33,21 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         this.memoList = memoList;
 
         // recyclerview에게 알람
-        notifyDataSetChanged();
+        // notifyDataSetChanged();
 
     }
 
     public MemoViewAdapter(Context context) {
         this.context = context;
+        layoutInflater = LayoutInflater.from(context);
     }
     /*
         MainActivity에서 MemoViewAdapter를 만들때 Context와 memoList를 주입할 생성자
      */
-    public MemoViewAdapter(Context context, List<MemoVO> memoList) {
-        this.context = context;
-        this.memoList = memoList;
-    }
+//    public MemoViewAdapter(Context context, List<MemoVO> memoList) {
+//        this.context = context;
+//        this.memoList = memoList;
+//    }
 
     @NonNull
     @Override
@@ -58,10 +59,8 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
 
         /*
         View view = LayoutInflater
-                        .from(context)
                         .inflate(R.layout.memo_item,parent,false);
-        */
-
+         */
         View view = layoutInflater
                     .inflate(R.layout.memo_item, parent, false);
 
@@ -77,14 +76,12 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         public TextView item_view_time;
         public TextView item_view_date;
         public TextView item_view_text;
-        public Button item_delete;
 
         public MemoHolder(@NonNull View itemView) {
             super(itemView);
             item_view_time = itemView.findViewById(R.id.item_time);
             item_view_date = itemView.findViewById(R.id.item_date);
             item_view_text = itemView.findViewById(R.id.item_text);
-            item_delete = itemView.findViewById(R.id.btn_delete);
         }
 
     }

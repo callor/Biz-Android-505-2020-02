@@ -24,17 +24,21 @@ public abstract class MemoDataBase extends RoomDatabase {
     // Helper 클래스
     // 앞으로 실행할(생성할) Thread를 위한 Context 정보를 담을 객체를
     // 미리 비어있는 상태로 생성을 해두고 필요할때 공급하는 용도
-    public static final ExecutorService dbWriterThread =
-            Executors.newFixedThreadPool(3);
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     private static volatile MemoDataBase INSTANCE;
 
     public static MemoDataBase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (MemoDataBase.class) {
-             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                      MemoDataBase.class, "memo.dbf")
-                     .build();
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            MemoDataBase.class, "word_database")
+                            // .addCallback(sRoomDatabaseCallback)
+                            .build();
+                }
             }
         }
         return INSTANCE;

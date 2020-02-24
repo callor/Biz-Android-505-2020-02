@@ -27,20 +27,21 @@ public class MemoRepository {
         return memoList;
     }
 
-    /* thread로 insert 실행 */
-    public void insert(final MemoVO memoVO) {
-        MemoDataBase.dbWriterThread.execute(new Runnable() {
+    /* thread로 save 실행 */
+    public void save(final MemoVO memoVO) {
+        /*
+        MemoDataBase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mDao.insert(memoVO);
+                mDao.save(memoVO);
             }
         });
 
-        /*
+         */
+
         MemoDataBase.databaseWriteExecutor.execute(()->{
             mDao.save(memoVO);
         });
-        */
 
     }
     public void delete(MemoVO memoVO) {

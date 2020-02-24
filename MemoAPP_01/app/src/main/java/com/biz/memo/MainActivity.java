@@ -30,7 +30,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    List<MemoVO> memoList = null;
     TextInputEditText m_input_memo = null;
     RecyclerView memo_list_view = null;
     MemoViewAdapter view_adapter = null;
@@ -47,17 +46,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         Button btn_save = findViewById(R.id.memo_save);
-        btn_save.setOnClickListener(this);
+         btn_save.setOnClickListener(this);
 
-        memoList = new ArrayList<>();
 
         m_input_memo = findViewById(R.id.m_input_text);
         memo_list_view = findViewById(R.id.memo_list_view);
-
-        // DB 연동을 위한 준비
-        // LifeCycle 2.2.0-beta01의 ViewModelProvider 사용
-        memoViewModel = new ViewModelProvider(this)
-                        .get(MemoViewModel.class);
 
         view_adapter = new MemoViewAdapter(this);
         memo_list_view.setAdapter(view_adapter);
@@ -68,13 +61,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         observ() 메서드가 알람을 주고 onChanged 이벤트가 발생을 한다.
         onChanged() method에서 데이터를 화면에 보여주는 코드를 작성한다.
          */
-        memoViewModel.selectAll().observe(this, new Observer<List<MemoVO>>() {
-            @Override
-            public void onChanged(List<MemoVO> memoVOS) {
-                view_adapter.setMemoList(memoVOS);
-            }
-        });
+//        memoViewModel.selectAll().observe(this, new Observer<List<MemoVO>>() {
+//            @Override
+//            public void onChanged(List<MemoVO> memoVOS) {
+//                view_adapter.setMemoList(memoVOS);
+//            }
+//        });
 
+        // DB 연동을 위한 준비
+        // LifeCycle 2.2.0-beta01의 ViewModelProvider 사용
+        memoViewModel = new ViewModelProvider(this)
+                .get(MemoViewModel.class);
+
+        memoViewModel.selectAll().observe(this,
+                memoVOS -> view_adapter.setMemoList(memoVOS));
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(MainActivity.this);
@@ -89,15 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         R.drawable.decoration_line, getApplication().getTheme()));
         memo_list_view.addItemDecoration(itemDecoration);
 
-
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener(view ->
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+                .setAction("Action", null).show());
 
     }
 
@@ -134,18 +129,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat st = new SimpleDateFormat("HH:mm:ss");
+//        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat st = new SimpleDateFormat("HH:mm:ss");
+//
+//        Date date = new Date(System.currentTimeMillis());
 
-        Date date = new Date(System.currentTimeMillis());
-
-        MemoVO memoVO = MemoVO.builder()
-                .m_date(sd.format(date))
-                .m_time(st.format(date))
-                .m_text(m_memo_text).build();
+//        MemoVO memoVO = MemoVO.builder()
+//                .m_date(sd.format(date))
+//                .m_time(st.format(date))
+//                .m_text(m_memo_text).build();
 
         // memoViewModel의 insert 메서드를 호출하여 DB에 memoVO 데이터를 저장
-        memoViewModel.insert(memoVO);
+        // memoViewModel.insert(memoVO);
 
         // memoList.add(memoVO);
         // memoList.add(memoVO);
@@ -153,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 다시 그려라 라는 통보
         // view_adapter.notifyDataSetChanged();
 
-        m_input_memo.setText("");
+        // m_input_memo.setText("");
 
     }
 

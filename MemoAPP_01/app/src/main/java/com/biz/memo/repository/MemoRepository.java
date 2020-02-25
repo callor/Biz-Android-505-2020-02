@@ -27,19 +27,35 @@ public class MemoRepository {
         return memoList;
     }
 
+<<<<<<< HEAD
+    /* thread로 save 실행 */
+    public void save(final MemoVO memoVO) {
+        /*
+        MemoDataBase.databaseWriteExecutor.execute(new Runnable() {
+=======
     /* thread로 insert 실행 */
     public void insert(final MemoVO memoVO) {
 
         // 기본자바 코드
         /*
         MemoDataBase.dbWriterThread.execute(new Runnable() {
+>>>>>>> 1f72a97f7508dc1a2891941a7437d1ebca0786ca
             @Override
             public void run() {
-                mDao.insert(memoVO);
+                mDao.save(memoVO);
             }
         });
+<<<<<<< HEAD
+
+         */
+
+        MemoDataBase.databaseWriteExecutor.execute(()->{
+            mDao.save(memoVO);
+        });
+=======
         */
         MemoDataBase.dbWriterThread.execute( ()->mDao.save(memoVO)  );
+>>>>>>> 1f72a97f7508dc1a2891941a7437d1ebca0786ca
 
     }
     public void delete(MemoVO memoVO) {

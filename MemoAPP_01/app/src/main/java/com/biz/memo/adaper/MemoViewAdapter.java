@@ -36,7 +36,7 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
 
     private Context context = null;
     private List<MemoVO> memoList = null;
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
 
     /*
@@ -50,7 +50,7 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         this.memoList = memoList;
 
         // recyclerview에게 알람
-        notifyDataSetChanged();
+        // notifyDataSetChanged();
 
     }
 
@@ -59,13 +59,22 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
 
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 1f72a97f7508dc1a2891941a7437d1ebca0786ca
     }
 
     /*
         context, list 생성자
         MainActivity에서 MemoViewAdapter를 만들때 Context와 memoList를 주입할 생성자
      */
+<<<<<<< HEAD
+//    public MemoViewAdapter(Context context, List<MemoVO> memoList) {
+//        this.context = context;
+//        this.memoList = memoList;
+//    }
+=======
     public MemoViewAdapter(Context context, List<MemoVO> memoList) {
 
         // 만약 context, list 생성자로 ViewAdapter를 생성하면
@@ -79,6 +88,7 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         this.memoList = memoList;
 
     }
+>>>>>>> 1f72a97f7508dc1a2891941a7437d1ebca0786ca
 
     @NonNull
     @Override
@@ -89,7 +99,14 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         //                  .from(context)
         //                  .inflate(R.layout.memo_item,parent,false);
 
+<<<<<<< HEAD
+        /*
+        View view = LayoutInflater
+                        .inflate(R.layout.memo_item,parent,false);
+         */
+=======
 
+>>>>>>> 1f72a97f7508dc1a2891941a7437d1ebca0786ca
         View view = layoutInflater
                     .inflate(R.layout.memo_item, parent, false);
 
@@ -105,14 +122,20 @@ public class MemoViewAdapter extends RecyclerView.Adapter {
         public TextView item_view_time;
         public TextView item_view_date;
         public TextView item_view_text;
+<<<<<<< HEAD
+=======
         public Button item_btn_delete;
+>>>>>>> 1f72a97f7508dc1a2891941a7437d1ebca0786ca
 
         public MemoHolder(@NonNull View itemView) {
             super(itemView);
             item_view_time = itemView.findViewById(R.id.item_time);
             item_view_date = itemView.findViewById(R.id.item_date);
             item_view_text = itemView.findViewById(R.id.item_text);
+<<<<<<< HEAD
+=======
             item_btn_delete = itemView.findViewById(R.id.item_delete);
+>>>>>>> 1f72a97f7508dc1a2891941a7437d1ebca0786ca
         }
     }
 

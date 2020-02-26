@@ -12,8 +12,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        // App 을 phone에 빌드(Deploy)하는 정책에
+        // proguard 정책을 적용할수 있다.
+        // App 빌드하는 파일을 압축할것이냐 말것이냐 라는 정책
+        // 아래의 2가지 속성값을 true 로 설정하므로서
+        // App의 빌드되는 파일크기를 최소한으로 줄이는 압축을 수행하고
+        // *.class 파일들을 난독화 하여 혹시 리버스 엔지니어링으로
+        // 소스코드를 복원하는 것을 줄일수 있도록 한다.
+        //       minifyEnabled true
+        //       shrinkResources true
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -51,14 +61,11 @@ repositories {
 }
 dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
-
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }
 
 dependencies {
-
     implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.7.1'
     implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.7.1'
-
 }
